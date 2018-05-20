@@ -1,0 +1,6 @@
+h
+r
+speed 8000
+loadbin /home/lumingliang/work/tiny6410/boot/boot.bin 0x0c000000
+setpc 0x0c000000
+g
