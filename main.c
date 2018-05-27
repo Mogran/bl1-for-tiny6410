@@ -1,4 +1,7 @@
 #include "boot.h"
+#include "io.h"
+#include "clock.h"
+#include "uart.h"
 
 inline void delay (unsigned long loops)  
 {  
@@ -14,20 +17,14 @@ void mdelay(void)
 	while(tm--);
 }
 
-
 void led_init(void)
 {
-	volatile unsigned short dat = 0;
+	unsigned short dat = 0;
 
 	writel(GPKCON0, 0x11112222);
-#if 1	
-	dat = *((volatile unsigned int*)GPKDAT);
-	dat |= 0xfaf;
-#else
-	readl(GPKDAT, dat);
-	dat |= 0xfaf;
-#endif	
-
+	dat = readw(GPKDAT);
+	dat |= 0xfff;
+	dat &= 0xfaf;
 	writel(GPKDAT, dat);
 }
 
@@ -36,7 +33,13 @@ int main(int argc, char *argv[])
 //	unsigned char dat[100];
 
 	led_init();
-//	uart_init();
+
+	tiny6410_clock_init();
+
+	uart_init(0);
+	
+	uart_tx("hello\n");
+
 //	nand_init();
 
 //	nand_read_id();

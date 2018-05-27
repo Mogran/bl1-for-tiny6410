@@ -1,7 +1,8 @@
-#ifndef UART_H__
-#define UART_H__
+#ifndef TINY6410_UART_H
+#define TINY6410_UART_H
 
 void uart_init(int uart_id);
 
+void uart_tx (char *tx);
 
 #endif

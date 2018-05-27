@@ -6,7 +6,7 @@
 #define GPKDAT	0x7F008808
 #define GPKPUD	0x7F00880C
 
-#define writel(reg, val) do{*((volatile unsigned int*)reg) = val;}while(0) 
+//#define writel(reg, val) do{*((volatile unsigned int*)reg) = val;}while(0) 
 
 #define NFCONF      (*(volatile unsigned int*)0x4E000000)
 #define NFCONT      (*(volatile unsigned int*)0x4E000004)
@@ -68,7 +68,6 @@
 
 #define wait4txdone()  while(!(UTRSTAT0& 0x2))
 
-extern void uart_init(void);
 extern void nand_init(void);
 extern void nand_read_id(void);
 extern void uart_tx_byte(unsigned char data);

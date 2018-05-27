@@ -1,4 +1,5 @@
 #include "uart.h"
+#include "io.h"
 
 #define ULCON0 		0x7f005000
 #define UCON0  		0x7f005004
@@ -17,7 +18,7 @@
 #define UINTM0		0x7f005038
 
 
-int uart_init(int uart_id)
+void uart_init(int uart_id)
 {
 	/*ULCON0********************************************************
 	 * bit7: reserved
@@ -34,9 +35,16 @@ int uart_init(int uart_id)
 
 	*(unsigned int*)UMCON0 = 0x0;
 
-	*(unsigned int*)UBRDIV0 = 
-
-
+	*(unsigned int*)UBRDIV0 = 35;
+	*(unsigned int*)UDIVSLOT0 = 1;
 }
+
+void uart_tx(char *tx)
+{
+	while(!readl(UTRSTAT0)){
+		writeb(UTXH0, *tx);
+	}
+}
+
 
 
