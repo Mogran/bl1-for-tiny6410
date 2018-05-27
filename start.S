@@ -36,7 +36,7 @@ halt_loop:
 	b halt_loop
 	
 init_stack:
-	ldr sp, =0x0C000FFF
+	ldr sp, =0x0C000FFC
 	mov pc, lr
 
 clean_bss:
